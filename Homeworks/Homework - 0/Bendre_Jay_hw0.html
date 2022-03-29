@@ -14538,9 +14538,910 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import pandas</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Importing all required libraries</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Question-1.">Question 1.<a class="anchor-link" href="#Question-1.">&#182;</a></h3><p>Basic Exercises using Numpy, let  $u = (1,2,3,3,2,1)'$</p>
+<p>a. Compute $U = I - \frac{2}{u'u} uu'$</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initializing required u variable </span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Identity Matrix</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Getting the new transformation </span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">u</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">u</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+
+<span class="c1"># Printing the new transformation</span>
+<span class="n">U</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>matrix([[ 0.92857143, -0.14285714, -0.21428571, -0.21428571, -0.14285714,
+         -0.07142857],
+        [-0.14285714,  0.71428571, -0.42857143, -0.42857143, -0.28571429,
+         -0.14285714],
+        [-0.21428571, -0.42857143,  0.35714286, -0.64285714, -0.42857143,
+         -0.21428571],
+        [-0.21428571, -0.42857143, -0.64285714,  0.35714286, -0.42857143,
+         -0.21428571],
+        [-0.14285714, -0.28571429, -0.42857143, -0.42857143,  0.71428571,
+         -0.14285714],
+        [-0.07142857, -0.14285714, -0.21428571, -0.21428571, -0.14285714,
+          0.92857143]])</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>b. Let C = $UU$, find the largest and smallest off diagonal elements of C.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining C = UU </span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">U</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Value of C matrix: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="c1"># Off diagonal elements of C </span>
+<span class="n">off_diag_C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fliplr</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum off diagonal element of C is: </span><span class="si">{}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Maximum off diagonal element of C is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">off_diag_C</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">off_diag_C</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Value of C matrix: 
+ [[ 1.00000000e+00 -3.50130922e-17 -5.16522766e-17 -5.16522766e-17
+  -3.50130922e-17 -2.20911724e-17]
+ [-3.50130922e-17  1.00000000e+00 -4.77934019e-17 -4.77934019e-17
+  -1.45150332e-17 -1.64267692e-17]
+ [-5.16522766e-17 -4.77934019e-17  1.00000000e+00 -8.38331672e-17
+  -7.55489775e-17 -5.23957295e-17]
+ [-5.16522766e-17 -4.77934019e-17 -8.38331672e-17  1.00000000e+00
+  -7.55489775e-17 -5.23957295e-17]
+ [-3.50130922e-17 -1.45150332e-17 -7.55489775e-17 -7.55489775e-17
+   1.00000000e+00 -1.64267692e-17]
+ [-2.20911724e-17 -1.64267692e-17 -5.23957295e-17 -5.23957295e-17
+  -1.64267692e-17  1.00000000e+00]]
+Minimum off diagonal element of C is: -8.383316716557304e-17 
+Maximum off diagonal element of C is: -1.451503316633655e-17
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>c. Find largest and smallest diagonal elements of C</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Extracting diagonal elements from the matrix</span>
+<span class="n">diag_C</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum diagonal element of C is: </span><span class="si">{}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Maximum diagonal element of C is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">diag_C</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diag_C</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Minimum diagonal element of C is: 0.9999999999999999 
+Maximum diagonal element of C is: 1.0
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>d. Compute $Uu$</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Getting the dot product between vector and matrix</span>
+<span class="n">Uu</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">u</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Uu</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[[-1. -2. -3. -3. -2. -1.]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>e. Computer the scalar $max_i \sum_{j} |U_{ij}|$</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Getting rowise sums of the matrix</span>
+<span class="n">row_wise_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">U</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The above scalar = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">row_wise_sums</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>The above scalar = 2.2857142857142856
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>f. Print third row of U</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Third Row of U matrix: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">[</span><span class="mi">2</span><span class="p">,:])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Third Row of U matrix: 
+ [[-0.21428571 -0.42857143  0.35714286 -0.64285714 -0.42857143 -0.21428571]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>g. Print the elements of the second column below the diagonal of U</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Extracting the second column and then selecting only elements below the diagonal</span>
+<span class="n">second_col_U</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elements in the second column below the diagonal: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">second_col_U</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Elements in the second column below the diagonal: 
+ [[-0.42857143]
+ [-0.42857143]
+ [-0.28571429]
+ [-0.14285714]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>h. Let A be first 3 columns of U, Compute $P = AA'$</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Extracting first 3 columns</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">U</span><span class="p">[:,:</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Calculating P = A A^T</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="c1"># Printing the matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix P: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Matrix P: 
+ [[ 9.28571429e-01 -1.42857143e-01 -2.14285714e-01 -3.54025199e-17
+  -2.88884563e-17 -1.44442281e-17]
+ [-1.42857143e-01  7.14285714e-01 -4.28571429e-01 -1.52938886e-17
+  -2.26576127e-18 -1.13288064e-18]
+ [-2.14285714e-01 -4.28571429e-01  3.57142857e-01 -4.07837029e-17
+  -4.30494642e-17 -2.15247321e-17]
+ [-3.54025199e-17 -1.52938886e-17 -4.07837029e-17  6.42857143e-01
+   4.28571429e-01  2.14285714e-01]
+ [-2.88884563e-17 -2.26576127e-18 -4.30494642e-17  4.28571429e-01
+   2.85714286e-01  1.42857143e-01]
+ [-1.44442281e-17 -1.13288064e-18 -2.15247321e-17  2.14285714e-01
+   1.42857143e-01  7.14285714e-02]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>i. Show that P is idempotent by recomputing (e) with $PP - P$</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Computing PP - P, Let it be X </span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">P</span> <span class="o">-</span> <span class="n">P</span>
+<span class="n">row_wise_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The above scalar = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">row_wise_sums</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>The above scalar = 2.43852557194454e-16
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Since all values in $PP - P \sim 0$, we can say that $P$ is a idempotent matrix.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>j. Let B be the last 3 columns of U, compute $Q = BB'$</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Getting B matrix from last 3 columns of U </span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+
+<span class="c1"># Computing Q = B B^T</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">B</span> <span class="o">@</span> <span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="c1"># Printing the matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix Q: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Matrix Q: 
+ [[ 7.14285714e-02  1.42857143e-01  2.14285714e-01 -2.38967009e-17
+  -7.25751658e-18 -8.21338462e-18]
+ [ 1.42857143e-01  2.85714286e-01  4.28571429e-01 -4.77934019e-17
+  -1.45150332e-17 -1.64267692e-17]
+ [ 2.14285714e-01  4.28571429e-01  6.42857143e-01 -2.83220159e-17
+  -2.00378263e-17 -2.46401539e-17]
+ [-2.38967009e-17 -4.77934019e-17 -2.83220159e-17  3.57142857e-01
+  -4.28571429e-01 -2.14285714e-01]
+ [-7.25751658e-18 -1.45150332e-17 -2.00378263e-17 -4.28571429e-01
+   7.14285714e-01 -1.42857143e-01]
+ [-8.21338462e-18 -1.64267692e-17 -2.46401539e-17 -2.14285714e-01
+  -1.42857143e-01  9.28571429e-01]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>k. Show that $Q$ is idempotent by recomputing (e) with $QQ - Q$</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Computing QQ - Q, Let it be X </span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">-</span> <span class="n">Q</span>
+<span class="n">row_wise_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The above scalar = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">row_wise_sums</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>The above scalar = 2.2069930916815132e-16
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Since all values in $QQ - Q \sim 0$, we can say that $Q$ is a idempotent matrix.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>l. Compute P + Q</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">P</span> <span class="o">+</span> <span class="n">Q</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[[ 1.00000000e+00 -2.77555756e-17 -5.55111512e-17 -5.92992209e-17
+  -3.61459728e-17 -2.26576127e-17]
+ [-2.77555756e-17  1.00000000e+00 -5.55111512e-17 -6.30872905e-17
+  -1.67807944e-17 -1.75596499e-17]
+ [-5.55111512e-17 -5.55111512e-17  1.00000000e+00 -6.91057189e-17
+  -6.30872905e-17 -4.61648860e-17]
+ [-5.92992209e-17 -6.30872905e-17 -6.91057189e-17  1.00000000e+00
+  -1.11022302e-16 -5.55111512e-17]
+ [-3.61459728e-17 -1.67807944e-17 -6.30872905e-17 -1.11022302e-16
+   1.00000000e+00  0.00000000e+00]
+ [-2.26576127e-17 -1.75596499e-17 -4.61648860e-17 -5.55111512e-17
+   0.00000000e+00  1.00000000e+00]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Question-2.">Question 2.<a class="anchor-link" href="#Question-2.">&#182;</a></h3><p>Read in the matrix in the file ‘oringp.dat’ (available on Piazza) on the failure of O-rings leading to the
+Challenger disaster. The columns are flight number, date, number of O-rings, number failed, and temperature
+at launch. Compute the correlation between number of failures and temperature at launch, deleting the last,
+missing observation (the disaster)</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Importing the file </span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;oringp.dat&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;python&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FlightNumber&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;no_o_rings&#39;</span><span class="p">,</span><span class="s1">&#39;fail&#39;</span><span class="p">,</span><span class="s1">&#39;temp&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1"># Dropping the last missing value </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Converting the failure column to integer</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;fail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;fail&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># Preview into dataset</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>FlightNumber</th>
+      <th>date</th>
+      <th>no_o_rings</th>
+      <th>fail</th>
+      <th>temp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>4/12/81</td>
+      <td>6</td>
+      <td>0</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>11/12/81</td>
+      <td>6</td>
+      <td>1</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>3/22/82</td>
+      <td>6</td>
+      <td>0</td>
+      <td>69</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>11/11/82</td>
+      <td>6</td>
+      <td>0</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>4/04/83</td>
+      <td>6</td>
+      <td>0</td>
+      <td>67</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Finding the correlation between failure and temperature</span>
+<span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;fail&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>array([[ 1.        , -0.56132843],
+       [-0.56132843,  1.        ]])</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Hence we can see that $corr(fail, temp) = -0.56132$</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Question-3.">Question 3.<a class="anchor-link" href="#Question-3.">&#182;</a></h3><p>Consider the mixed effect model 
+$$
+y_i = x_i' \beta + z_i' \gamma + \epsilon_i, \quad i = 1, \dots, n,
+$$
+where $\epsilon_i \sim N(0, \sigma_0^2)$ are independent normal errors, $\beta \in \mathbb{R}^p$ are fixed effects, $\gamma \in \mathbb{R}^q$ are random effects assumed to be $N(0_q, \sigma_1^2 I_q)$, $\gamma$ and $\epsilon_i$ are independent. For simplicity, assume $\mu_i = x_i' \beta$. 
+Let $ y = (y_1, \dots, y_n)'$, $ \mu = (\mu_1, \dots, \mu_n)'$, 
+$ Z = (z_1, \dots, z_n)'$, 
+then
+$ y \in \mathbb{R}^{n}$, $ \mu \in \mathbb{R}^n$, $ Z \in \mathbb{R}^{n \times q}$,
+and 
+$ y \sim N( \mu, \sigma_1^2 ZZ'  + \sigma_0^2 I_n)$.
+The log-density function is given by
+$$
+ -\frac{n}{2} \log(2 \pi) - \frac{1}{2} \log (\det(\sigma_1^2 ZZ' + \sigma_0^2 I_n)) - \frac{1}{2} (y-\mu)'(\sigma_1^2 ZZ' + \sigma_0^2I_n)^{-1} (y-\mu).
+$$</p>
+<p>Please write a function, call it 
+$\mathsf{dmvnorm\_lowrank(y, mu, Z, sigma0, sigma1, log = FALSE)}$
+that evaluates the (log)-density function at a given $y \in \mathbb{R}^n$.
+Choose values for $n (&gt; 5)$ and $q (&gt; 3)$, test your function on simulated data.</p>
+<p>Notes: 
+1) When $\mathsf{log = FALSE}$, your function should calculate the log likelihood; when 
+$\mathsf{log = TRUE}$, your function should calculate the original likelihood function. 
+The default uses $\mathsf{log = FALSE}$. 
+2) Use the $\mathsf{np.random.seed}$ function before generating data from a random distribution.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Creating new function called dmvnorm_lowrank </span>
+
+<span class="k">def</span> <span class="nf">dmvnorm_lowrank</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span><span class="n">sigma0</span><span class="p">,</span><span class="n">sigma1</span><span class="p">,</span><span class="n">log</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="c1"># Calculating all the terms required in the given log likelihood function function </span>
+    
+    <span class="c1">#a. Z * Z^T</span>
+    <span class="n">z_zt</span> <span class="o">=</span> <span class="n">Z</span> <span class="o">@</span> <span class="n">Z</span><span class="o">.</span><span class="n">T</span>
+    
+    <span class="c1">#b. n </span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1">#c. sigma0^2 * In</span>
+    <span class="n">sigma0_identity</span> <span class="o">=</span> <span class="n">sigma0</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="c1"># Calculating the log density of the function </span>
+    <span class="n">ldf</span>  <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">sigma1</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z_zt</span> <span class="o">+</span> <span class="n">sigma0_identity</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">((</span><span class="n">sigma1</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z_zt</span> <span class="o">+</span> <span class="n">sigma0_identity</span><span class="p">))</span> <span class="o">@</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span>
+    
+    <span class="c1"># Checking whether the function demands the likelihood to be in log space or not</span>
+    <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">ldf</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ldf</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>For testing, we assume the following constraints:</p>
+<ul>
+<li><p>$n = 100$ , $q = 5$</p>
+</li>
+<li><p>$\sigma_0 \sim$ Random number between 0 and 100</p>
+</li>
+<li><p>$\sigma_1 \sim$ Random number between 0 and 100</p>
+</li>
+<li><p>$\mu \sim Uniform(0,10)$</p>
+</li>
+<li><p>$Z \sim N (10,2)$</p>
+</li>
+<li><p>$y \sim N(\mu, \sigma_1^2 ZZ' + \sigma_0^2 I_n)$</p>
+</li>
+</ul>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Testing the above function to get the likelihood for random Y and mu</span>
+
+<span class="c1"># Generating Z matrix with n = 100 and q = 5 </span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">920211348</span><span class="p">)</span>
+
+<span class="c1"># Generating sigma 0 and sigma 1 </span>
+<span class="n">sigma0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">sigma1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Generating 500 values from a normal distribution with mean 10 and standard deviation 2</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Generating 100 values from the multivariate normal distribution with mean mu and covariance matrix Z @ Z.T</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma1</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma0</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Z</span> <span class="o">@</span> <span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14551,10 +15452,16 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Start here</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating the likelihood for the above generated data </span>
+
+<span class="c1">#a. Log Likelihood </span>
+<span class="n">log_likelihood</span> <span class="o">=</span> <span class="n">dmvnorm_lowrank</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span><span class="n">sigma0</span><span class="p">,</span><span class="n">sigma1</span><span class="p">,</span><span class="n">log</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="c1">#b. Normal Likelihood</span>
+<span class="n">likelihood</span> <span class="o">=</span> <span class="n">dmvnorm_lowrank</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span><span class="n">sigma0</span><span class="p">,</span><span class="n">sigma1</span><span class="p">,</span><span class="n">log</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
      </div>
